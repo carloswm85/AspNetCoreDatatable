@@ -1,4 +1,23 @@
+- [AspNet Core jQuery Datatable](#aspnet-core-jquery-datatable)
+  - [MSSQL Database](#mssql-database)
+  - [API Reference](#api-reference)
+      - [Get basic datatables request](#get-basic-datatables-request)
+      - [Post Pagination](#post-pagination)
+      - [Post Searching](#post-searching)
+      - [Post Searching](#post-searching-1)
+    - [Request Form Control from jQuery Datatable Ajax Server side Process](#request-form-control-from-jquery-datatable-ajax-server-side-process)
+    - [jQuery Ajax Server Side Ajax Request](#jquery-ajax-server-side-ajax-request)
+        - [This script is only work for pagination and searching but data ordering doesn't work propably.](#this-script-is-only-work-for-pagination-and-searching-but-data-ordering-doesnt-work-propably)
+        - [So we need to add the column name in this script.](#so-we-need-to-add-the-column-name-in-this-script)
+        - [Customizing UI with dom of datatable option](#customizing-ui-with-dom-of-datatable-option)
+
+
+---
+
+https://github.com/carloswm85/AspNetCoreDatatable
+
 # AspNet Core jQuery Datatable
+
  Datatable Pagination with API
  This is the jQuery Datatable Custom UI and Custom Mode. Including pagination, searching and ordering.
  Querying the 13,000 rows from MSSQL Server with linq query.
