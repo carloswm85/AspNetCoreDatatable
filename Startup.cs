@@ -2,16 +2,10 @@ using AspNetCoreDatatable.Data;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AspNetCoreDatatable
 {
@@ -34,7 +28,7 @@ namespace AspNetCoreDatatable
 			services.AddMvc(option => option.EnableEndpointRouting = false);
 
 			services.AddDbContext<AspNetCoreDatatableContext>(
-				options =>options.UseSqlServer(
+				options => options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection"),
 					sqlServerOptions => sqlServerOptions.CommandTimeout(10000)
 				)
