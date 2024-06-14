@@ -3,7 +3,6 @@ using AspNetCoreDatatable.Entities;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +11,7 @@ using System.Linq.Dynamic.Core;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace AspNetCoreDatatable.Controllers
 {
@@ -20,9 +20,12 @@ namespace AspNetCoreDatatable.Controllers
 	public class DatatablesController : ControllerBase
 	{
 		private readonly AspNetCoreDatatableContext _context;
-		public DatatablesController(AspNetCoreDatatableContext context)
+		private readonly ILogger<DatatablesController> _logger;
+
+		public DatatablesController(AspNetCoreDatatableContext context, ILogger<DatatablesController> logger)
 		{
 			_context = context;
+			_logger = logger;
 		}
 
 		// Basic Datatable
@@ -82,6 +85,7 @@ namespace AspNetCoreDatatable.Controllers
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
+				_logger.LogError(ex, "An error occurred during processing.");
 				return BadRequest();
 				throw;
 			}
@@ -133,8 +137,9 @@ namespace AspNetCoreDatatable.Controllers
 				Debug.WriteLine(watch.Elapsed);
 				return Ok(new { draw, recordsFiltered = recordsTotal, recordsTotal, data });
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				_logger.LogError(ex, "An error occurred during processing.");
 				return BadRequest();
 				throw;
 			}
@@ -187,9 +192,11 @@ namespace AspNetCoreDatatable.Controllers
 
 				List<UserInfo> data = new List<UserInfo>();
 
-				if (pageSize < 0) {
+				if (pageSize < 0)
+				{
 					data = await userInfo.ToListAsync();
-				} else
+				}
+				else
 				{
 					data = await userInfo.Skip(skip).Take(pageSize).ToListAsync();
 				}
@@ -198,8 +205,9 @@ namespace AspNetCoreDatatable.Controllers
 				var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
 				return Ok(jsonData);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				_logger.LogError(ex, "An error occurred during processing.");
 				return BadRequest();
 				throw;
 			}
@@ -283,6 +291,7 @@ namespace AspNetCoreDatatable.Controllers
 			}
 			catch (Exception ex)
 			{
+				_logger.LogError(ex, "An error occurred during processing.");
 				return BadRequest();
 				throw;
 			}
