@@ -32,7 +32,12 @@ namespace AspNetCoreDatatable.Controllers
 		public async Task<IActionResult> GetAsync()
 		{
 			Debug.WriteLine("> BASIC");
-			return Ok(new { data = await _context.UserInfos.ToListAsync() });
+			var watch = Stopwatch.StartNew();
+			watch.Start();
+			var data = await _context.UserInfos.ToListAsync();
+			Debug.WriteLine($"Elapsed time: {watch.Elapsed}");
+			Debug.WriteLine($"Items count: {data.Count}");
+			return Ok(new { data });
 		}
 
 		// Pagination
@@ -78,7 +83,7 @@ namespace AspNetCoreDatatable.Controllers
 					data = await userInfo.Skip(skip).Take(pageSize).ToListAsync();
 				}
 
-				Debug.WriteLine(watch.Elapsed);
+				Debug.WriteLine($"Elapsed time: {watch.Elapsed}");
 				return Ok(new { draw, recordsFiltered = recordsTotal, recordsTotal, data });
 			}
 			catch (Exception ex)
@@ -133,7 +138,7 @@ namespace AspNetCoreDatatable.Controllers
 					data = await userInfo.Skip(skip).Take(pageSize).ToListAsync();
 				}
 
-				Debug.WriteLine(watch.Elapsed);
+				Debug.WriteLine($"Elapsed time: {watch.Elapsed}");
 				return Ok(new { draw, recordsFiltered = recordsTotal, recordsTotal, data });
 			}
 			catch (Exception ex)
@@ -200,7 +205,7 @@ namespace AspNetCoreDatatable.Controllers
 					data = await userInfo.Skip(skip).Take(pageSize).ToListAsync();
 				}
 
-				Debug.WriteLine(watch.Elapsed);
+				Debug.WriteLine($"Elapsed time: {watch.Elapsed}");
 				var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
 				return Ok(jsonData);
 			}
@@ -284,7 +289,7 @@ namespace AspNetCoreDatatable.Controllers
 					data = await userInfo.Skip(skip).Take(pageSize).ToListAsync();
 				}
 
-				Debug.WriteLine(watch.Elapsed);
+				Debug.WriteLine($"Elapsed time: {watch.Elapsed}");
 				var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
 				return Ok(jsonData);
 			}
