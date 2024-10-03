@@ -70,7 +70,7 @@ namespace AspNetCoreDatatable.Controllers
 				}
 
 				recordsTotal = userInfo.Count();
-				Debug.WriteLine(recordsTotal);
+				Debug.WriteLine($"Items count: {recordsTotal}");
 
 				List<UserInfo> data = new List<UserInfo>();
 
